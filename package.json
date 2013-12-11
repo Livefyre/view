@@ -6,7 +6,18 @@
     "name": "JJ Weber",
     "email": "jj@livefyre.com"
   },
-  "dependencies": {
-    "bower": "*"
+  "scripts": {
+    "postinstall": "./node_modules/bower/bin/bower install",
+    "start": "./node_modules/http-server/bin/http-server .",
+    "test": "./bin/test",
+    "jsdoc": "rm -rf docs/api && ./node_modules/jsdoc/jsdoc -c tools/jsdoc.conf.json",
+    "hint": "./node_modules/jshint/bin/jshint src/ tests/spec; echo"
+  },
+  "devDependencies": {
+    "bower": "1.2.7",
+    "http-server": "*",
+    "jshint": "~1.1.0",
+    "jsdoc": "git://github.com/jsdoc3/jsdoc.git",
+    "mocha-phantomjs": "~2.0.3"
   }
 }
