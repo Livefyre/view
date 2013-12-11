@@ -1,0 +1,12 @@
+{
+  "name": "view",
+  "description": "An object that attatches to a DOM node",
+  "author": "Livefyre <support@livefyre.com>",
+  "contributors": {
+    "name": "JJ Weber",
+    "email": "jj@livefyre.com"
+  },
+  "dependencies": {
+    "bower": "*"
+  }
+}
