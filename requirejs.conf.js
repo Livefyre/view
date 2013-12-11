@@ -1,33 +1,15 @@
 require.config({
   paths: {
-    jquery: 'lib/jquery/jquery',,
-    jasmine: 'lib/jasmine/lib/jasmine-core/jasmine',
-    'jasmine-html': 'lib/jasmine/lib/jasmine-core/jasmine-html',
-    'jasmine-jquery': 'lib/jasmine-jquery/lib/jasmine-jquery',
+    jquery: 'lib/jquery/jquery',
     'event-emitter': 'lib/event-emitter/src/event-emitter',
     inherits: 'lib/inherits/inherits',
-    'blanket-jasmine': 'lib/blanket/dist/jasmine/blanket_jasmine'
+    mocha: 'lib/mocha/mocha',
+    chai: 'lib/chai/chai',
+    view: 'src/view'
   },
-  packages: [{
-    name: 'view', location: 'src'
-  }],
   shim: {
     jquery: {
         exports: '$'
-    },
-    jasmine: {
-        exports: 'jasmine'
-    },
-    'jasmine-html': {
-        deps: ['jasmine'],
-        exports: 'jasmine'
-    },
-    'blanket-jasmine': {
-        exports: 'blanket',
-        deps: ['jasmine']
-    },
-    'jasmine-jquery': {
-        deps: ['jquery']
     }
   }
 });

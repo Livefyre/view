@@ -11,8 +11,8 @@
     "inherits": "git://github.com/Livefyre/inherits.git"
   },
   "devDependencies": {
-    "jasmine": "*",
-    "jasmine-jquery": "*",
-    "almond": "~0.2.5"
+    "almond": "~0.2.5",
+    "chai": "~1.8.1",
+    "mocha": "*"
   }
 }

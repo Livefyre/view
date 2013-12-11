@@ -7,7 +7,7 @@ var inherits = require('inherits');
 var viewCounts = 0;
 function uniqueId () {
     return ++viewCounts + '';
-};
+}
 
 /**
  * Defines a base view object that can be bound to any number of stream-managers. Content is
@@ -125,7 +125,7 @@ View.prototype.detach = function () {
     this.$el.detach();
 };
 
-View.prototype.destroy = function ();
+View.prototype.destroy = function () {
     this.$el.remove();
     this.template = null;
     this.undelegateEvents();
