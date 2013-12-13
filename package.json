@@ -21,6 +21,7 @@
     "jshint": "~1.1.0",
     "jsdoc": "git://github.com/jsdoc3/jsdoc.git",
     "mocha-phantomjs": "~2.0.3",
+    "mocha": "1.15.1",
     "karma-script-launcher": "~0.1.0",
     "karma-chrome-launcher": "~0.1.0",
     "karma-firefox-launcher": "~0.1.0",
