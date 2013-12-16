@@ -5,7 +5,7 @@
  * @param events {Object} - Initial event mapping
  */
 function EventMap (events) {
-    extend(this, events);
+    extend(this, [events]);
 }
 
 /**
@@ -17,7 +17,7 @@ function EventMap (events) {
 EventMap.prototype.extended = function () {
     var newMap = new EventMap(this);
     var extensions = [].slice.apply(arguments);
-    extend.apply({}, [newMap].concat(extensions));
+    extend(newMap, extensions);
     return newMap;
 };
 
@@ -25,16 +25,17 @@ EventMap.prototype.extended = function () {
  * Extend the first argument with keys from the rest, left to right
  * Only extends ownProperties (unlike $.extend)
  * @param {object} target - Target Object to extend
- * @param {...object} extensions - Objects to extend from
+ * @param {object[]} extensions - Array of Objects to extend from
  */
-function extend (target) {
-    var copy, name, options, length;
+function extend (target, extensions) {
+    var copy, name, options, extensionsLength;
     target = target || {},
-    length = arguments.length;
+    extensions = extensions || [];
+    extensionsLength = extensions.length;
 
-    for (var i=1; i < length; i++) {
+    for (var i=0; i < extensionsLength; i++) {
         // Only deal with non-undefined values
-        if ((options = arguments[i]) !== undefined) {
+        if ((options = extensions[i]) !== undefined) {
             // Extend the base object
             for (name in options) {
                 if ( ! options.hasOwnProperty(name)) {
