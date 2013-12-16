@@ -1,6 +1,9 @@
 var expect = require('chai').expect;
 var View = require('view');
 var $ = require('jquery');
+var inherits = require('inherits');
+
+'use strict';
 
 describe('view', function () {
     var view;
@@ -22,6 +25,36 @@ describe('view', function () {
             expect(view.el).to.equal(element);
             expect(view.$el instanceof $).to.equal(true);
             expect(view.$el[0]).to.equal(element);
+        });
+        describe('on subclass with an event map', function () {
+            var ViewWithEvents;
+            beforeEach(function () {
+                ViewWithEvents = function () {
+                    this.clickedEls = [];
+                    View.apply(this, arguments);
+                };
+                inherits(ViewWithEvents, View);
+
+                ViewWithEvents.prototype.events = View.prototype.events.extended({
+                    'click': function (e) {
+                        this.clickedEls.push(e.target);
+                    }
+                });
+            });
+            it('construction delegates events', function () {
+                var view = new ViewWithEvents();
+                view.$el.click();
+                expect(view.clickedEls.length).to.equal(1);
+                expect(view.clickedEls).to.include(view.el);
+            });
+            it('.setElement undelegates from old el and delegates events to the new .el', function () {
+                var view = new ViewWithEvents();
+                var newEl = document.createElement('div');
+                view.setElement(newEl);
+                view.$el.click();
+                expect(view.clickedEls.length).to.equal(1);
+                expect(view.clickedEls).to.include(newEl);
+            });
         });
     });
     describe('$', function () {
@@ -87,6 +120,31 @@ describe('view', function () {
             view.$('test').trigger('click.hub');
 
             expect(view.truth).to.equal(false);
+        });
+    });
+    describe('.events.extended()', function () {
+        it('can be used to easily extend a Parent View\'s EventMap', function () {
+            var onClickParent = function () {};
+            function ParentView () {
+                View.apply(this, arguments);
+            }
+            inherits(ParentView, View);
+            ParentView.prototype.events = View.prototype.events.extended({
+                'click .parent': onClickParent
+            });
+
+            var onClickChild = function () {};
+            function ChildView () {
+                ParentView.apply(this, arguments);
+            }
+            inherits(ChildView, ParentView);
+            ChildView.prototype.events = ParentView.prototype.events.extended({
+                'click .child': onClickChild
+            });
+
+            var childView = new ChildView();
+            expect(childView.events['click .parent']).to.equal(onClickParent);
+            expect(childView.events['click .child']).to.equal(onClickChild);
         });
     });
 });

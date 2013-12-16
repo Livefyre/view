@@ -2,6 +2,8 @@ var $ = require('jquery');
 var EventEmitter = require('event-emitter');
 var inherits = require('inherits');
 
+var EventMap = require('view/event-map');
+
 'use strict';
 
 var viewCounts = 0;
@@ -27,7 +29,6 @@ var View = function(opts) {
     this.uid = uniqueId();
 
     this.setElement(opts.el || document.createElement(this.elTag));
-    this.delegateEvents();
 };
 inherits(View, EventEmitter);
 
@@ -42,6 +43,8 @@ View.prototype.elTag = 'div';
 
 View.prototype.elClass = '';
 
+View.prototype.events = new EventMap();
+
 /**
  * Set the element for the view to render in.
  * You will probably want to call .render() after this, but not always.
@@ -49,15 +52,18 @@ View.prototype.elClass = '';
  * @return this
  */
 View.prototype.setElement = function (element) {
-    if (element instanceof $) {
-        element = element[0];
+    if (this.el) {
+        this.undelegateEvents();
     }
-    this.el = element;
-    this.$el = $(element);
+
+    this.$el = element instanceof $ ? element : $(element);
+    this.el = this.$el[0];
 
     if (this.elClass) {
         this.$el.addClass(this.elClass);
     }
+
+    this.delegateEvents();
 
     return this;
 };
