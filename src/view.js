@@ -53,6 +53,7 @@ View.prototype.events = new EventMap();
  */
 View.prototype.setElement = function (element) {
     if (this.el) {
+        this.$el.removeClass(this.elClass);
         this.undelegateEvents();
     }
 

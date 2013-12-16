@@ -26,6 +26,20 @@ describe('view', function () {
             expect(view.$el instanceof $).to.equal(true);
             expect(view.$el[0]).to.equal(element);
         });
+        it('removes this.elClass from previous el', function () {
+            var ClassyView = function () {
+                View.apply(this, arguments);
+            };
+            inherits(ClassyView, View);
+            ClassyView.prototype.elClass += 'c1 c2 c3';
+
+            var classyView = new ClassyView();
+            var $ogEl = classyView.$el;
+            expect($ogEl.is('.c1.c2.c3')).to.equal(true);
+            classyView.setElement(document.createElement('div'));
+            expect($ogEl.is('.c1.c2.c3')).to.equal(false);
+            expect(classyView.$el.is('.c1.c2.c3')).to.equal(true);
+        });
         describe('on subclass with an event map', function () {
             var ViewWithEvents;
             beforeEach(function () {
