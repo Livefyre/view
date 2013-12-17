@@ -1,8 +1,7 @@
 var $ = require('jquery');
 var EventEmitter = require('event-emitter');
-var inherits = require('inherits');
-
 var EventMap = require('view/event-map');
+var inherits = require('inherits');
 
 'use strict';
 
@@ -38,12 +37,29 @@ View.prototype.$ = function(selector) {
     return this.$el.find(selector);
 };
 
-/** The HTMLElement tag to use if this View creates its own element */
+/**
+ * The HTMLElement tag to use if this View creates its own element
+ * @type {string}
+ */
 View.prototype.elTag = 'div';
 
+/**
+ * Class to be added to the view's element.
+ * @type {string}
+ */
 View.prototype.elClass = '';
 
+/**
+ * Event bindings.
+ * @type {EventMap}
+ */
 View.prototype.events = new EventMap();
+
+/**
+ * The template that may be used for this view.
+ * @type {?function()}
+ */
+View.prototype.template = null;
 
 /**
  * Set the element for the view to render in.
@@ -108,6 +124,9 @@ View.prototype.delegateEvents = function (events) {
     return this;
 };
 
+/**
+ * Unbinds the events registered with .delegateEvents
+ */
 View.prototype.undelegateEvents = function() {
     this.$el.off('.delegateEvents' + this.uid);
     return this;
