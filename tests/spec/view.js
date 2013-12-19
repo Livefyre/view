@@ -160,5 +160,24 @@ describe('view', function () {
             expect(childView.events['click .parent']).to.equal(onClickParent);
             expect(childView.events['click .child']).to.equal(onClickChild);
         });
+        it('can have a function passed, which is evaluated with this as the view', function () {
+            var onClickParent = function () {};
+            function MyView () {
+                View.apply(this, arguments);
+            }
+            inherits(MyView, View);
+            MyView.prototype._trackClickedEvent = 'click';
+            MyView.prototype.events = View.prototype.events.extended(function () {
+                var events = {};
+                events[this._trackClickedEvent] = function () {
+                    this._clicked = true;
+                };
+                return events;
+            });
+
+            var view = new MyView();
+            view.$el.click();
+            expect(view._clicked).to.equal(true);
+        });
     });
 });
