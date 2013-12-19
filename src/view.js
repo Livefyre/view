@@ -104,6 +104,9 @@ View.prototype.delegateEvents = function (events) {
         return this;
     }
     this.undelegateEvents();
+    if (events instanceof EventMap) {
+        events = events.withContext(this);
+    }
     for (var key in events) {
         if (events.hasOwnProperty(key)) {
             var method = events[key];

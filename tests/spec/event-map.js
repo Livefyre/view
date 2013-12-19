@@ -19,6 +19,20 @@ describe('view/event-map', function () {
         expect(eventMap.click).to.equal(onClick);
         expect(eventMap['click thing']).to.equal(onClickThing);
     });
+    it('can be constructed with an function that returns an object', function () {
+        var onClick = function () {};
+        var makeEvents = function () {
+            var events = {};
+            events[this._eventName] = onClick;
+            return events;
+        };
+        var eventMap = new EventMap(makeEvents);
+        var context = {
+            '_eventName': 'click'
+        };
+        expect(eventMap.withContext(context)).to.contain.keys('click');
+        expect(eventMap.withContext(context).click).to.equal(onClick);
+    });
     describe('.extended', function () {
         it('returns a new object', function () {
             var onClick = function () {};
@@ -50,6 +64,37 @@ describe('view/event-map', function () {
             });
             expect(eventMap).not.to.equal(extendedEventMap);
             expect(extendedEventMap.click).to.equal(onClick2);
+        });
+        it('when passed functions, stores them to be evaluated later', function () {
+            var eventMap = new EventMap({
+                'eventName': function () {}
+            });
+            var makeEvents = function () {
+                var events = {};
+                events[this._eventName] = function () {};
+                return events;
+            };
+            var extendedEventMap = eventMap.extended(makeEvents);
+            expect(eventMap._factories).not.to.contain(makeEvents);
+            expect(extendedEventMap._factories).to.contain(makeEvents);
+        });
+    });
+    describe('.withContext', function () {
+        it('can be passed an object, and factories are called with the object as this', function () {
+            var eventMap = new EventMap({
+                'eventName': function () {}
+            });
+            var makeEvents = function () {
+                var events = {};
+                events[this._eventName] = function () {};
+                return events;
+            };
+            var extendedEventMap = eventMap.extended(makeEvents);
+            var context = {
+                '_eventName': 'click'
+            };
+            expect(extendedEventMap.withContext(context)).to.include.keys('click');
+            expect(eventMap.withContext(context)).not.to.include.keys('click');
         });
     });
 });
