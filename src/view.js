@@ -56,6 +56,14 @@ View.prototype.elClass = '';
 View.prototype.events = new EventMap();
 
 /**
+ * Getting partial data for the template.
+ * @return {!Object}
+ */
+View.prototype.getPartialData = function() {
+    return {};
+};
+
+/**
  * The template that may be used for this view.
  * @type {?function()}
  */
