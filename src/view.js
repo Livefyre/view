@@ -57,9 +57,11 @@ View.prototype.events = new EventMap();
 
 /**
  * Get contextual data for a template.
- * @type {?function()}
+ * @type {function()}
  */
-View.prototype.getTemplateContext = null;
+View.prototype.getTemplateContext = function () {
+    return this;
+};
 
 /**
  * The template that may be used for this view.
@@ -147,8 +149,10 @@ View.prototype.undelegateEvents = function() {
  *     then call .render() on those subelements
  */
 View.prototype.render = function () {
+    var context;
     if (typeof this.template === 'function') {
-        this.$el.html(this.template(this));
+        context = this.getTemplateContext();
+        this.$el.html(this.template(context));
     }
 };
 
