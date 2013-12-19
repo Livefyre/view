@@ -23,17 +23,19 @@ EventMap.prototype.extended = function () {
 };
 
 /**
- * Evaluate the EventMap with a particular context, and get a resulting
+ * Evaluate the EventMap with a particular context
  * Any ._factories will be called so that `this` is the provided context
  * @returns {object} object mapping event strings/selectors to callback functions
  */
 EventMap.prototype.withContext = function (context) {
     var contextualExtensions = [];
     var factory;
+    var theseEvents;
     var events = {};
     for (var i=0, numFactories=this._factories.length; i < numFactories; i++) {
         factory = this._factories[i];
-        contextualExtensions.push(factory.call(context));
+        theseEvents = {};
+        contextualExtensions.push(factory.call(context, theseEvents) || theseEvents);
     }
     extend(events, [this].concat(contextualExtensions));
     return events;

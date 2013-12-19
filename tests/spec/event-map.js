@@ -19,12 +19,10 @@ describe('view/event-map', function () {
         expect(eventMap.click).to.equal(onClick);
         expect(eventMap['click thing']).to.equal(onClickThing);
     });
-    it('can be constructed with an function that returns an object', function () {
+    it('can be constructed with an function', function () {
         var onClick = function () {};
-        var makeEvents = function () {
-            var events = {};
+        var makeEvents = function (events) {
             events[this._eventName] = onClick;
-            return events;
         };
         var eventMap = new EventMap(makeEvents);
         var context = {
@@ -69,10 +67,8 @@ describe('view/event-map', function () {
             var eventMap = new EventMap({
                 'eventName': function () {}
             });
-            var makeEvents = function () {
-                var events = {};
+            var makeEvents = function (events) {
                 events[this._eventName] = function () {};
-                return events;
             };
             var extendedEventMap = eventMap.extended(makeEvents);
             expect(eventMap._factories).not.to.contain(makeEvents);
@@ -84,10 +80,8 @@ describe('view/event-map', function () {
             var eventMap = new EventMap({
                 'eventName': function () {}
             });
-            var makeEvents = function () {
-                var events = {};
+            var makeEvents = function (events) {
                 events[this._eventName] = function () {};
-                return events;
             };
             var extendedEventMap = eventMap.extended(makeEvents);
             var context = {
