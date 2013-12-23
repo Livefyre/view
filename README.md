@@ -19,8 +19,8 @@ Construct a view. Pass an HTMLElement as `opts.el` to have the View use it, othe
 ### `View#setElement(el)`
 
 Set the element that a View owns. The provided Element will then be available as
-* .el - The Element
-* .$el - The Element, wrapped in jQuery
+* `.el` - The Element
+* `.$el` - The Element, wrapped in jQuery
 
 The provided Element will have the string in `.elClass` added to its `class` attribute.
 
