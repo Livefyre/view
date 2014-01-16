@@ -11,14 +11,12 @@ function uniqueId () {
 }
 
 /**
- * Defines a base view object that can be bound to any number of stream-managers. Content is
- * passed into a view via "add" event on "this". Subclasses are responsible for listening to
- * the "add" events and using them to display streamed content.
+ * A View is an Object that facades an HTMLElement, and provides helpful methods
+ * for automatically creating appropriate Elements on construction, rendering
+ * templates as their innerHTML, and delegating and undelegating event listeners
  * @param opts {Object} A set of options to config the view with
- * @param opts.streams {Object.<string, Stream>} A dictionary of streams to listen to
- * @param opts.el {HTMLElement} The element in which to render the streamed content
- * view instance.
- * @exports streamhub-sdk/view
+ * @param opts.el {HTMLElement} The element the View should control
+ * @exports view/view
  * @constructor
  */
 var View = function(opts) {
@@ -33,6 +31,9 @@ inherits(View, EventEmitter);
 
 var delegateEventSplitter = /^(\S+)\s*(.*)$/;
 
+/**
+ * Find elements within the View's .el by jQuery selector
+ */
 View.prototype.$ = function(selector) {
     return this.$el.find(selector);
 };
@@ -164,6 +165,11 @@ View.prototype.detach = function () {
     this.$el.detach();
 };
 
+/**
+ * Destroy this View, rendering it useless.
+ * Remove .el from the DOM, and unbind all event listeners in .events
+ * Subclasses should free up as much memory as possible here.
+ */
 View.prototype.destroy = function () {
     this.$el.remove();
     this.template = null;
