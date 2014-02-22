@@ -33,9 +33,18 @@ var delegateEventSplitter = /^(\S+)\s*(.*)$/;
 
 /**
  * Find elements within the View's .el by jQuery selector
+ * @param {string}
  */
 View.prototype.$ = function(selector) {
     return this.$el.find(selector);
+};
+
+/**
+ * Find elements by div class name
+ * @param {string}
+ */
+View.prototype.$class = function(className) {
+    return this.$el.find('.' + className);
 };
 
 /**
