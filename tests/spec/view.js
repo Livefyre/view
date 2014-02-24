@@ -77,10 +77,10 @@ describe('view', function () {
             expect(view.$('test').html()).to.equal('test');
         });
     });
-    describe('$class', function () {
+    describe('getElementsByClass', function () {
         it('forms a class selector and queries the local Element', function () {
             view.setElement('<div><div class="test">test</div></div>');
-            expect(view.$class('test').html()).to.equal('test');
+            expect(view.getElementsByClass('test').html()).to.equal('test');
         });
     });
     describe('.delegateEvents()', function () {
