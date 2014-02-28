@@ -45,9 +45,9 @@ function delegateEvents($antenna, events, uniqueId, context) {
             var selector = match[2];
             eventName += EVENT_ANTENNA + uniqueId;
             if (selector === '') {
-                context.$el.on(eventName, method);
+                $antenna.on(eventName, method);
             } else {
-                context.$el.on(eventName, selector, method);
+                $antenna.on(eventName, selector, method);
             }
         }
     }
