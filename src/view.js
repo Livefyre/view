@@ -1,14 +1,10 @@
 var $ = require('jquery');
+var delegate = require('view/delegate');
 var EventEmitter = require('event-emitter');
 var EventMap = require('view/event-map');
 var inherits = require('inherits');
 
 'use strict';
-
-var viewCounts = 0;
-function uniqueId () {
-    return ++viewCounts + '';
-}
 
 /**
  * A View is an Object that facades an HTMLElement, and provides helpful methods
@@ -23,7 +19,7 @@ var View = function(opts) {
     EventEmitter.call(this);
     opts = opts || {};
     this.opts = opts;
-    this.uid = uniqueId();
+    this.uid = delegate.getUniqueId();
 
     this.setElement(opts.el || document.createElement(this.elTag));
 };
@@ -115,35 +111,7 @@ View.prototype.delegateEvents = function (events) {
     if (!(events || (events = this.events))) {
         return this;
     }
-    this.undelegateEvents();
-    if (events instanceof EventMap) {
-        events = events.withContext(this);
-    }
-    for (var key in events) {
-        if (events.hasOwnProperty(key)) {
-            var method = events[key];
-            if (typeof method === 'string') {
-                method = this[method];
-            }
-            if (!method) {
-                throw "Undefined method for: " + key;
-            }
-            method = $.proxy(method, this);
-
-            var match = key.match(delegateEventSplitter);
-            if (!match) {
-                throw "Invalid event/selector pair: " + key;
-            }
-            var eventName = match[1];
-            var selector = match[2];
-            eventName += '.delegateEvents' + this.uid;
-            if (selector === '') {
-                this.$el.on(eventName, method);
-            } else {
-                this.$el.on(eventName, selector, method);
-            }
-        }
-    }
+    delegate.delegateEvents(this.$el, events, this.uid, this);
     return this;
 };
 
@@ -151,7 +119,7 @@ View.prototype.delegateEvents = function (events) {
  * Unbinds the events registered with .delegateEvents
  */
 View.prototype.undelegateEvents = function() {
-    this.$el.off('.delegateEvents' + this.uid);
+    delegate.undelegateEvents(this.$el, this.uid);
     return this;
 };
 
