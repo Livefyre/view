@@ -4,6 +4,13 @@ var $ = require('jquery');
 var View = require('view');
 var inherits = require('inherits');
 
+/**
+ * A View that is composed of child views
+ * (childView1, ..., childViewN, <opts>)
+ * @param [arguments] The child views, and optional 'opts'
+ * @exports view/composite-view
+ * @constructor
+ */
 var CompositeView = function () {
     var args = Array.prototype.slice.call(arguments, 0);
     var hasOpts = !(args[args.length-1] instanceof View);
@@ -20,6 +27,10 @@ var CompositeView = function () {
 };
 inherits(CompositeView, View);
 
+/**
+ * Add a child view
+ * @param view {View} The child view to add
+ */
 CompositeView.prototype.addView = function (view) {
     this._childViews.push(view);
     this.$el.append(view.$el);
@@ -27,6 +38,10 @@ CompositeView.prototype.addView = function (view) {
     return this;
 };
 
+/**
+ * Remove a child view
+ * @param view {View} The child view to remove
+ */
 CompositeView.prototype.removeView = function (view) {
     view.destroy();
     this._childViews.splice($.inArray(view, this._childViews), 1);
