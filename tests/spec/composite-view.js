@@ -22,7 +22,7 @@ describe('composite-view', function () {
     describe('when adding a child view', function () {
         it ('adds a child view to #_childViews and immediately renders it', function () {
             var compositeView = new CompositeView();
-            compositeView.addView(new View());
+            compositeView.add(new View());
             expect(compositeView._childViews.length).to.equal(1);
         });
     });
@@ -30,10 +30,10 @@ describe('composite-view', function () {
     describe('when remove a child view', function () {
         var compositeView = new CompositeView();
         var childView = new View();
-        compositeView.addView(childView);
+        compositeView.add(childView);
 
         it('removes the specified child view from #_childViews and destroys it', function () {
-            compositeView.removeView(childView);
+            compositeView.remove(childView);
             expect(compositeView._childViews.length).to.equal(0);
         });
     });
