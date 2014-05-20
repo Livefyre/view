@@ -37,4 +37,22 @@ describe('composite-view', function () {
             expect(compositeView._childViews.length).to.equal(0);
         });
     });
+
+    describe('when rendering', function () {
+        var compositeView = new CompositeView(new View(), new View());
+        it('appends to the DOM the number of child views', function () {
+            compositeView.render();
+            expect(compositeView.$el.children().length).to.equal(2);
+        });
+    });
+
+    describe('when destroying', function () {
+        var view1 = new View();
+        var view2 = new View();
+        var compositeView = new CompositeView(view1, view2);
+        it('removes from the DOM the all child views', function () {
+            compositeView.destroy();
+            expect(compositeView.$el.children().length).to.equal(0);
+        });
+    });
 });
