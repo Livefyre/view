@@ -49,6 +49,7 @@ CompositeView.prototype.removeView = function (view) {
 };
 
 CompositeView.prototype.render = function () {
+    View.prototype.render.call(this);
     for (var i=0; i < this._childViews.length; i++) {
         this._childViews[i].render();
     }
@@ -56,6 +57,7 @@ CompositeView.prototype.render = function () {
 };
 
 CompositeView.prototype.destroy = function () {
+    View.prototype.destroy.call(this);
     for (var i=0; i < this._childViews.length; i++) {
         this._childViews[i].destroy();
     }
