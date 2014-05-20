@@ -57,7 +57,7 @@ CompositeView.prototype.render = function () {
 
 CompositeView.prototype.destroy = function () {
     for (var i=0; i < this._childViews.length; i++) {
-        this._childViews.destroy();
+        this._childViews[i].destroy();
     }
     this._childViews = [];
 
