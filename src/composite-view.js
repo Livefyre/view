@@ -4,7 +4,7 @@ var View = require('view');
 var inherits = require('inherits');
 
 var CompositeView = function () {
-    var args = Array.prototype.slice.call(arguments, 0)
+    var args = Array.prototype.slice.call(arguments, 0);
     var hasOpts = !(args[args.length-1] instanceof View);
     var opts = hasOpts ? args.pop() : {};
 
@@ -36,6 +36,15 @@ CompositeView.prototype.render = function () {
     for (var i=0; i < this._childViews.length; i++) {
         this._childViews[i].render();
     }
+    return this;
+};
+
+CompositeView.prototype.destroy = function () {
+    for (var i=0; i < this._childViews.length; i++) {
+        this._childViews.destroy();
+    }
+    this._childViews = [];
+
     return this;
 };
 
