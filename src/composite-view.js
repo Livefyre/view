@@ -1,5 +1,6 @@
 'use strict';
 
+var $ = require('jquery');
 var View = require('view');
 var inherits = require('inherits');
 
@@ -28,7 +29,7 @@ CompositeView.prototype.addView = function (view) {
 
 CompositeView.prototype.removeView = function (view) {
     view.destroy();
-    this._childViews.splice(this._childViews.indexOf(view), 1);
+    this._childViews.splice($.inArray(view, this._childViews), 1);
     return this;
 };
 
