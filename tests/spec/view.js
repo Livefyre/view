@@ -1,5 +1,5 @@
 var expect = require('chai').expect;
-var View = require('view');
+var View = require('view/view');
 var $ = require('jquery');
 var inherits = require('inherits');
 

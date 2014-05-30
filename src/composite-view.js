@@ -1,7 +1,7 @@
 'use strict';
 
 var $ = require('jquery');
-var View = require('view');
+var View = require('view/view');
 var inherits = require('inherits');
 
 /**

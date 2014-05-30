@@ -8,8 +8,7 @@ require.config({
   },
   packages: [{
     name: 'view',
-    location: 'src',
-    main: 'view'
+    location: 'src'
   }],
   shim: {
     jquery: {
