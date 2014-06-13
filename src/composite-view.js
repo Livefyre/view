@@ -54,8 +54,9 @@ CompositeView.prototype.remove = function (view) {
 CompositeView.prototype.render = function () {
     View.prototype.render.call(this);
     for (var i=0; i < this._childViews.length; i++) {
-        this.$el.append(this._childViews[i].el);
-        this._childViews[i].render();
+        var childView = this._childViews[i];
+        this.$el.append(childView.el);
+        childView.render();
     }
     return this;
 };
