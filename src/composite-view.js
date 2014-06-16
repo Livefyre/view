@@ -22,7 +22,7 @@ var CompositeView = function () {
 
     var subViews = hasOpts ? args.slice(0, args.length) : args;
     for (var i=0; i < subViews.length; i++) {
-        this.add(subViews[i]);
+        this.add(subViews[i], { render: false });
     }
 };
 inherits(CompositeView, View);
@@ -31,10 +31,13 @@ inherits(CompositeView, View);
  * Add a child view
  * @param view {View} The child view to add
  */
-CompositeView.prototype.add = function (view) {
+CompositeView.prototype.add = function (view, opts) {
+    opts = opts || {};
     this._childViews.push(view);
-    this.$el.append(view.$el);
-    view.render();
+    if (opts.render === true) {
+        this.$el.append(view.$el);
+        view.render();
+    }
     return this;
 };
 
@@ -51,7 +54,9 @@ CompositeView.prototype.remove = function (view) {
 CompositeView.prototype.render = function () {
     View.prototype.render.call(this);
     for (var i=0; i < this._childViews.length; i++) {
-        this._childViews[i].render();
+        var childView = this._childViews[i];
+        this.$el.append(childView.el);
+        childView.render();
     }
     return this;
 };
