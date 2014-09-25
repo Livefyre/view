@@ -119,7 +119,12 @@ View.prototype.delegateEvents = function (events) {
  * Unbinds the events registered with .delegateEvents
  */
 View.prototype.undelegateEvents = function() {
-    delegate.undelegateEvents(this.$el, this.uid);
+    try {
+        delegate.undelegateEvents(this.$el, this.uid);
+    } catch(e){
+        console.log('Undelegate failure ', this, this.$el, this.uid)
+    }
+    
     return this;
 };
 
@@ -150,9 +155,12 @@ View.prototype.detach = function () {
  * Subclasses should free up as much memory as possible here.
  */
 View.prototype.destroy = function () {
-    this.$el.remove();
-    this.template = null;
     this.undelegateEvents();
+    this.$el.remove();
+    this.$el = null;
+    this.el = null;
+    this.opts = null;
+    this.template = null;
 };
 
 module.exports = View;
