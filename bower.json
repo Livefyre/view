@@ -1,13 +1,13 @@
 {
   "name": "view",
-  "version": "1.3.1",
+  "version": "1.4.0",
   "main": [
     "./src/view.js"
   ],
   "dependencies": {
     "cajon": "git://github.com/requirejs/cajon.git#~0.1.11",
     "jquery": "~1.10.1",
-    "event-emitter": "git://github.com/Livefyre/event-emitter.git",
+    "event-emitter": "git://github.com/Livefyre/event-emitter.git#0.1",
     "inherits": "git://github.com/Livefyre/inherits.git"
   },
   "devDependencies": {
