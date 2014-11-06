@@ -1,5 +1,6 @@
 var expect = require('chai').expect;
 var View = require('view');
+var EventEmitter = require('event-emitter');
 var $ = require('jquery');
 var inherits = require('inherits');
 
@@ -10,6 +11,18 @@ describe('view', function () {
     beforeEach(function () {
         view = new View();
     });
+    describe('.destroy()', function () {
+        it('removes all listeners', function () {
+            var view = new View();
+            view.on('event', function () {});
+            view.on('event1', function () {});
+            expect(EventEmitter.listenerCount(view, 'event')).to.equal(1);
+            expect(EventEmitter.listenerCount(view, 'event1')).to.equal(1);
+            view.destroy();
+            expect(EventEmitter.listenerCount(view, 'event1')).to.equal(0);
+            expect(EventEmitter.listenerCount(view, 'event')).to.equal(0);
+        })
+    })
     describe('.setElement(element)', function () {
         it('sets .el and $el when passed an HTMLElement', function () {
             var element = document.createElement('div');

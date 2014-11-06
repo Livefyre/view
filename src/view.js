@@ -153,6 +153,7 @@ View.prototype.destroy = function () {
     this.$el.remove();
     this.template = null;
     this.undelegateEvents();
+    this.removeAllListeners();
 };
 
 module.exports = View;
