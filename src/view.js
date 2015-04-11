@@ -1,7 +1,7 @@
 var $ = require('jquery');
-var delegate = require('view/delegate');
+var delegate = require('./delegate');
 var EventEmitter = require('event-emitter');
-var EventMap = require('view/event-map');
+var EventMap = require('./event-map');
 var inherits = require('inherits');
 
 'use strict';
