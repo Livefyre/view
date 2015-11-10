@@ -2,7 +2,7 @@
   "name": "view",
   "description": "An object that attatches to a DOM node",
   "author": "Livefyre <support@livefyre.com>",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "contributors": {
     "name": "JJ Weber",
     "email": "jj@livefyre.com"
@@ -16,7 +16,7 @@
     "hint": "./node_modules/jshint/bin/jshint src/ tests/spec; echo"
   },
   "devDependencies": {
-    "bower": "1.2.7",
+    "bower": "*",
     "http-server": "*",
     "jshint": "~1.1.0",
     "jsdoc": "git://github.com/jsdoc3/jsdoc.git",

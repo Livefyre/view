@@ -3,6 +3,7 @@ var delegate = require('view/delegate');
 var EventEmitter = require('event-emitter');
 var EventMap = require('view/event-map');
 var inherits = require('inherits');
+var util = require('view/util');
 
 'use strict';
 
@@ -22,6 +23,11 @@ var View = function(opts) {
     this.uid = delegate.getUniqueId();
 
     this.setElement(opts.el || document.createElement(this.elTag));
+
+    // Require mobile events for mobile browsers.
+    if (util.isMobile()) {
+        require('view/jquery-mobile-events');
+    }
 };
 inherits(View, EventEmitter);
 
