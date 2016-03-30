@@ -2,7 +2,7 @@
  * @fileOverview Delegate utils.
  */
 var $ = require('jquery');
-var EventMap = require('view/event-map');
+var EventMap = require('./event-map');
 
 /** @const {string} */
 var EVENT_ANTENNA = '.delegateEvents';

@@ -7,6 +7,7 @@
     "name": "JJ Weber",
     "email": "jj@livefyre.com"
   },
+  "main": "./src/view.js",
   "scripts": {
     "postinstall": "./node_modules/bower/bin/bower install",
     "start": "./node_modules/http-server/bin/http-server .",
