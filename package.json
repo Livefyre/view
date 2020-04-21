@@ -18,8 +18,8 @@
   "devDependencies": {
     "bower": "*",
     "http-server": "*",
-    "jshint": "~1.1.0",
-    "jsdoc": "git://github.com/jsdoc3/jsdoc.git",
+    "jshint": "2.9.7",
+    "jsdoc": "3.6.3",
     "mocha-phantomjs": "~2.0.3",
     "mocha": "1.15.1",
     "karma-script-launcher": "~0.1.0",
